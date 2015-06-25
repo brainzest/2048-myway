@@ -2,7 +2,6 @@ from tkinter import *
 from math import *
 import random
 master = Tk()
-global box
 box=[[0,4,8,256] *4] * 4
 score =0
 dead=0
@@ -11,7 +10,6 @@ start_coordinate_y=100
 box_width=100
 box_height=100
 def restart():
-    print("here");
     global box
     box=[[0,0,0,0] *4] * 4
     draw()
@@ -52,7 +50,6 @@ def draw():
                        draw_boxes(x, y, box_width, box_height,"grey")
                        if box[i][j] >0 :
                            p =log(box[i][j])/log(2)
-                           print(p)
                            color=rgb_to_hex(p*23,p*23,p*23);
                            #todo :improve colour of the boxes                           
                            draw_boxes(x, y, box_width, box_height, color)
