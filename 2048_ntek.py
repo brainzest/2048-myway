@@ -2,18 +2,14 @@ from tkinter import *
 from math import *
 import random
 master = Tk()
-box=[[0,4,8,256] *4] * 4
+box=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 score =0
 dead=0
 start_coordinate_x =100
 start_coordinate_y=100
 box_width=100
 box_height=100
-def restart():
-    global box
-    box=[[0,0,0,0] *4] * 4
-    draw()
-    score=dead=0
+
     
 w = Canvas(master, width=700, height=550)
 w.create_text(300 , 20,text="2048", fill="brown", font=("Helvetica",22))
@@ -35,11 +31,40 @@ def rgb_to_hex(r,g,b):
     return '#%02x%02x%02x' % (r,g,b)
 def create_random_tile():
     #create todo
-    print ("random")
+        # Create a new tile in a randomly selected empty 
+        # square.  The tile should be 2 80% of the time and
+        # 4 20% of the time.
+    available_boxes = []
+    for row in range(4):
+        for col in range(4):
+            if box[row][col] == 0:
+                available_boxes.append([row, col])
+
+    if not available_boxes:
+        print ("There are no available positions.")
+    else:
+         random_tile = random.choice(available_boxes)
+         weighted_choices = [(2, 8), (4, 2)]
+         available_values= [val for val, count in weighted_choices for i in range(count)]
+         tile = random.choice(available_values)
+         print(random_tile[0])
+         print(tile)
+         global box
+         print(box)
+         box[random_tile[0]][random_tile[1]]= tile
+         print(box)
+        
+def restart():
+    global box
+    box=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    draw()
+    score=dead=0
+    create_random_tile()     
     
 def draw():
     #draw_boxes(50, 50, 150, 150,"blue")
     #print 'lenght', len(boxes)
+    create_random_tile()
     for i in range(len(box)):
         for j in range(len(box)):
                        
